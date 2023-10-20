@@ -22,7 +22,11 @@ if not os.path.exists(tests_folder):
         subprocess.run(["gunzip", "sample.tgz"])
     subprocess.run(["tar", "xf", "sample.tar"])
 
-subprocess.run(["g++", os.path.join(path_to_dir, "main.c"), "-Wall", "-Wextra"])
+
+
+filename = "main.cpp" if os.path.exists(os.path.join(cwd, "main.cpp")) else "main.c"
+
+subprocess.run(["g++", os.path.join(path_to_dir, filename), "-Wall", "-Wextra", "-pedantic" , "-g", "-fsanitize=address"])
 
 failed_count = 0
 success = '\033[96m'
